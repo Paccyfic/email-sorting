@@ -7,6 +7,12 @@ export class AuthController {
   // This just redirects to frontend after successful auth
   googleCallback(req: Request, res: Response): void {
     const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+
+    // Log successful authentication for debugging
+    if (req.user) {
+      logger.info('User authenticated successfully', { userId: (req.user as any).id });
+    }
+
     res.redirect(`${frontendUrl}/dashboard`);
   }
 

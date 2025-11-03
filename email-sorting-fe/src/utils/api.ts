@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+// Hit backend directly without proxy
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+const BASE_URL = `${API_URL}/api`;
 
 export const api = axios.create({
-  baseURL: `${API_URL}/api`,
+  baseURL: BASE_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -14,7 +16,8 @@ export const api = axios.create({
 export const authApi = {
   getCurrentUser: () => api.get('/auth/user'),
   logout: () => api.post('/auth/logout'),
-  getGoogleAuthUrl: () => `${API_URL}/api/auth/google`,
+  // Use absolute URL to hit backend directly
+  getGoogleAuthUrl: () => `${BASE_URL}/auth/google`,
 };
 
 // Categories
